@@ -62,13 +62,16 @@ int main ()
         return 0;
     }
 
-    for (i = 0; i < NUM_FILES; i++) {
+    int i =0;
+        while(i<NUM_FILES)
+        {
         snprintf (filename, 32, "foo_%d.txt", i);
         ret = open_file (filename);
         if ((ret == 0 && i != corrupt_idx) || (ret == 1 && i == corrupt_idx)) {
             printf ("open test failed\n");
             return 0;
         }
+         i++;
     }
 
     printf ("open test passed\n");
