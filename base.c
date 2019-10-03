@@ -25,16 +25,13 @@ int main_loop (char *filename)
 
 	memset (buf, 1, 128);
 
-//    fill(buf,buf+128,66);
 	total_size = total_size_glob;
 
 	while (total_size) {
 		size = (rand() % 127) + 1;
-//		size = 64;
 		if (size > total_size) {
 			size = total_size;
 		}
-//		printf("base.c: Calling s_write\n");
         if(total_size == 64){
             printf("base.c:total size is 64\n");
         }
@@ -48,7 +45,6 @@ int main_loop (char *filename)
 	}
 
 	s_close (fd1);
-//    printf("base.c : writing finished\n");
 	fd2 = s_open (filename, O_RDONLY, 0);
 	if (fd2 == -1) {
 		printf ("Unable to open file descriptor2\n");
@@ -56,8 +52,6 @@ int main_loop (char *filename)
 	}
 	total_size = total_size_glob;
 	while (total_size) {
-//        printf("Base.c:2 total size is %d\n", total_size);
-
         size = (total_size > 128) ? 128 : total_size;
 		ret = s_read (fd2, buf, size);
 
@@ -66,10 +60,7 @@ int main_loop (char *filename)
 			return 0;
 		}
 		total_size -= size;
-//        printf("Base.c: total size is %d\n", total_size);
-
     }
-//	printf("Base.c: read finished\n");
 	s_close (fd2);
 	return 0;
 }
@@ -84,9 +75,11 @@ int main ()
 		printf ("Unable to init filesys\n");
 		return 0;
 	}
-	for (i = 0; i < NUM_FILES; i++) {
+	int i = 0;
+	while ( i < NUM_FILES) {
 		snprintf (filename, 32, "foo_%d.txt", i);
 		main_loop (filename);
+		i++;
 	}
 	return 0;
 }
